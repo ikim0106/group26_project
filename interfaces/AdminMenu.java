@@ -17,11 +17,11 @@ public class AdminMenu {
         System.out.printf("Processing...");
         Statement stmt = dbase.dbConnection.createStatement();
         String[] tablesToCreate = {
-            "CREATE TABLE category (cid INTEGER(1) UNSIGNED NOT NULL, cname VARCHAR(20) NOT NULL, PRIMARY KEY (cid))",
-            "CREATE TABLE manufacturer (mid INTEGER(2) UNSIGNED NOT NULL, mname VARCHAR(20) NOT NULL, maddress VARCHAR(50) NOT NULL, mphonenumber INT(8) UNSIGNED NOT NULL, PRIMARY KEY(mid))",
-            "CREATE TABLE part (pid INTEGER(3) UNSIGNED NOT NULL, pname VARCHAR(20) NOT NULL, pprice INTEGER(5) UNSIGNED NOT NULL, mid INTEGER(2) UNSIGNED NOT NULL, cid INTEGER(1) UNSIGNED NOT NULL, pwarrantyperiod INTEGER(2) UNSIGNED NOT NULL, pavailablequantity INTEGER(2) UNSIGNED NOT NULL, PRIMARY KEY(pid))",
-            "CREATE TABLE salesperson (sid INTEGER(2) UNSIGNED NOT NULL, sname VARCHAR(20) NOT NULL, saddress VARCHAR(50) NOT NULL, sphonenumber INTEGER(8) UNSIGNED NOT NULL, sexperience INTEGER(1) NOT NULL, PRIMARY KEY(sid))",
-            "CREATE TABLE transaction (tid INTEGER(4) UNSIGNED NOT NULL, pid INTEGER(3) UNSIGNED NOT NULL, sid INTEGER(2) UNSIGNED NOT NULL, tdate DATE NOT NULL, PRIMARY KEY(tid))",
+            "CREATE TABLE category (cid INTEGER(1) NOT NULL, cname VARCHAR(20) NOT NULL, PRIMARY KEY (cid))",
+            "CREATE TABLE manufacturer (mid INTEGER(2) NOT NULL, mname VARCHAR(20) NOT NULL, maddress VARCHAR(50) NOT NULL, mphonenumber INT(8) NOT NULL, PRIMARY KEY(mid))",
+            "CREATE TABLE part (pid INTEGER(3) NOT NULL, pname VARCHAR(20) NOT NULL, pprice INTEGER(5) NOT NULL, mid INTEGER(2) NOT NULL, cid INTEGER(1) NOT NULL, pwarrantyperiod INTEGER(2) NOT NULL, pavailablequantity INTEGER(2) NOT NULL, PRIMARY KEY(pid))",
+            "CREATE TABLE salesperson (sid INTEGER(2) NOT NULL, sname VARCHAR(20) NOT NULL, saddress VARCHAR(50) NOT NULL, sphonenumber INTEGER(8) NOT NULL, sexperience INTEGER(1) NOT NULL, PRIMARY KEY(sid))",
+            "CREATE TABLE transaction (tid INTEGER(4) NOT NULL, pid INTEGER(3) NOT NULL, sid INTEGER(2) NOT NULL, tdate DATE NOT NULL, PRIMARY KEY(tid))",
         };
 
         for(int i=0; i<tablesToCreate.length; i++) {
