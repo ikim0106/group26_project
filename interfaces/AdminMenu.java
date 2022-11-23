@@ -2,6 +2,8 @@ package interfaces;
 
 import java.sql.*;
 import dbtools.*;
+import java.io.*;
+import java.nio.file.*;
 import java.util.Scanner;
 
 public class AdminMenu {
@@ -17,11 +19,11 @@ public class AdminMenu {
         System.out.printf("Processing...");
         Statement stmt = dbase.dbConnection.createStatement();
         String[] tablesToCreate = {
-            "CREATE TABLE category (cid INTEGER(1) NOT NULL, cname VARCHAR(20) NOT NULL, PRIMARY KEY (cid))",
-            "CREATE TABLE manufacturer (mid INTEGER(2) NOT NULL, mname VARCHAR(20) NOT NULL, maddress VARCHAR(50) NOT NULL, mphonenumber INT(8) NOT NULL, PRIMARY KEY(mid))",
-            "CREATE TABLE part (pid INTEGER(3) NOT NULL, pname VARCHAR(20) NOT NULL, pprice INTEGER(5) NOT NULL, mid INTEGER(2) NOT NULL, cid INTEGER(1) NOT NULL, pwarrantyperiod INTEGER(2) NOT NULL, pavailablequantity INTEGER(2) NOT NULL, PRIMARY KEY(pid))",
-            "CREATE TABLE salesperson (sid INTEGER(2) NOT NULL, sname VARCHAR(20) NOT NULL, saddress VARCHAR(50) NOT NULL, sphonenumber INTEGER(8) NOT NULL, sexperience INTEGER(1) NOT NULL, PRIMARY KEY(sid))",
-            "CREATE TABLE transaction (tid INTEGER(4) NOT NULL, pid INTEGER(3) NOT NULL, sid INTEGER(2) NOT NULL, tdate DATE NOT NULL, PRIMARY KEY(tid))",
+            "CREATE TABLE category (cid INTEGER(1) NOT NULL PRIMARY KEY, cname VARCHAR(20) NOT NULL)",
+            "CREATE TABLE manufacturer (mid INTEGER(2) NOT NULL PRIMARY KEY, mname VARCHAR(20) NOT NULL, maddress VARCHAR(50) NOT NULL, mphonenumber INT(8) NOT NULL)",
+            "CREATE TABLE part (pid INTEGER(3) NOT NULL PRIMARY KEY, pname VARCHAR(20) NOT NULL, pprice INTEGER(5) NOT NULL, mid INTEGER(2) NOT NULL, cid INTEGER(1) NOT NULL, pwarrantyperiod INTEGER(2) NOT NULL, pavailablequantity INTEGER(2) NOT NULL)",
+            "CREATE TABLE salesperson (sid INTEGER(2) NOT NULL PRIMARY KEY, sname VARCHAR(20) NOT NULL, saddress VARCHAR(50) NOT NULL, sphonenumber INTEGER(8) NOT NULL, sexperience INTEGER(1) NOT NULL)",
+            "CREATE TABLE transaction (tid INTEGER(4) NOT NULL PRIMARY KEY, pid INTEGER(3) NOT NULL, sid INTEGER(2) NOT NULL, tdate DATE NOT NULL)",
         };
 
         for(int i=0; i<tablesToCreate.length; i++) {
@@ -40,6 +42,31 @@ public class AdminMenu {
         System.out.println("Done! Database is removed!");
     }
 
+    public void addFiles(String pathname) throws SQLException {
+        // File folder = new File("");
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString() + '/' + pathname + '/';
+        File folder = new File(s);
+        File[] listOfFiles = folder.listFiles();
+
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                if(file.getName().startsWith("category")) {
+                    System.out.println(file.getName());
+                    CategoryHandler ch = new CategoryHandler(file);
+                    ch.handleCategoryFile(dbase);
+                }
+            }
+        }
+    } 
+
+    public void getTable(String tableName) throws SQLException {
+        if(tableName.startsWith("category")) {
+            CategoryHandler ch = new CategoryHandler(null);
+            ch.insertCategory(tableName, dbase);
+        }
+    }
+
     public void initAdminMenu() {
         while(true){
             System.out.println("\n-----Operations for administrator menu-----");
@@ -54,19 +81,29 @@ public class AdminMenu {
             int n = reader.nextInt();
             // reader.close();
             if(n==1) {
-                try {
-                    createTables();
-                } catch(SQLException sql_e) {
-                    System.out.println(sql_e);
-                }
+                try {createTables();} 
+                catch(SQLException sql_e) {System.out.println(sql_e);}
             }
 
             else if(n==2) {
-                try {
-                    deleteTables();
-                } catch(SQLException sql_e) {
-                    System.out.println(sql_e);
-                }
+                try {deleteTables();} 
+                catch(SQLException sql_e) {System.out.println(sql_e);}
+            }
+
+            else if(n==3) {
+                System.out.printf("Type in the Source Data Folder Path: ");
+                String pathname = reader.next();
+
+                try {addFiles(pathname);}
+                catch(SQLException sql_e) {System.out.println(sql_e);}
+            }
+
+            else if(n==4) {
+                System.out.printf("Which table would you like to show: ");
+                String tableName = reader.next();
+
+                try {getTable(tableName);}
+                catch(SQLException sql_e) {System.out.println(sql_e);}
             }
             
             else if(n==5) return;
