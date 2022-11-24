@@ -5,18 +5,17 @@ import java.sql.*;
 
 public class CategoryHandler {
     private int cid;
-    private String cName;
+    private String cname;
 
-    File categoryFile = null;
+    Database dbase = null;
 
-    public CategoryHandler(File categoryFile) {
-        this.categoryFile = categoryFile;
+    public CategoryHandler(Database dbase) {
+        this.dbase = dbase;
     }
 
-    public void handleCategoryFile(Database dbase) {
-        System.out.printf("Processing...");
+    public void handleCategoryFile(File cFile) {
         try {
-            FileInputStream fstream = new FileInputStream(categoryFile);
+            FileInputStream fstream = new FileInputStream(cFile);
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
@@ -24,12 +23,12 @@ public class CategoryHandler {
             while ((strLine = br.readLine()) != null)   {
                 String[] toParse = strLine.split("\t");
                 this.cid = Integer.parseInt(toParse[0]);
-                this.cName = toParse[1];
-                // System.out.println("cid: " + this.cid + ", " + "cname: " + this.cName);
+                this.cname = toParse[1];
+                // System.out.println("cid: " + this.cid + ", " + "cname: " + this.cname);
                 try {
-                    PreparedStatement stmt = dbase.dbConnection.prepareStatement("INSERT INTO category (cid, cname) VALUES(?, ?)");
+                    PreparedStatement stmt = this.dbase.dbConnection.prepareStatement("INSERT INTO category (cid, cname) VALUES(?, ?)");
                     stmt.setInt(1, this.cid);
-                    stmt.setString(2, this.cName);
+                    stmt.setString(2, this.cname);
                     stmt.execute();
                 } catch (SQLException sql_e) {
                     System.out.println(sql_e);
@@ -41,15 +40,14 @@ public class CategoryHandler {
         catch (Exception e) {
             System.out.println(e);
         }
-        System.out.println("Done! Data is inputted to the database!"); 
     }
 
-    public void insertCategory(String tableName, Database dbase) {
+    public void printCategory(String tableName) {
         System.out.println("| c_id | c_name |");
         int categoryid;
         String categoryname;
         try {
-            Statement stmt = dbase.dbConnection.createStatement();
+            Statement stmt = this.dbase.dbConnection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT cid, cname FROM category");
             while(rs.next()) {
                 categoryid = rs.getInt(1);

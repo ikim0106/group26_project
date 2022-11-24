@@ -17,7 +17,7 @@ public class AdminMenu {
 
     public void createTables() throws SQLException {
         System.out.printf("Processing...");
-        Statement stmt = dbase.dbConnection.createStatement();
+        Statement stmt = this.dbase.dbConnection.createStatement();
         String[] tablesToCreate = {
             "CREATE TABLE category (cid INTEGER(1) NOT NULL PRIMARY KEY, cname VARCHAR(20) NOT NULL)",
             "CREATE TABLE manufacturer (mid INTEGER(2) NOT NULL PRIMARY KEY, mname VARCHAR(20) NOT NULL, maddress VARCHAR(50) NOT NULL, mphonenumber INT(8) NOT NULL)",
@@ -34,7 +34,7 @@ public class AdminMenu {
 
     public void deleteTables() throws SQLException {
         System.out.printf("Processing...");
-        Statement stmt = dbase.dbConnection.createStatement();
+        Statement stmt = this.dbase.dbConnection.createStatement();
         for(int i=0; i<tables.length; i++) {
             String removeQuery = "DROP TABLE " + tables[i];
             stmt.executeUpdate(removeQuery);
@@ -43,7 +43,7 @@ public class AdminMenu {
     }
 
     public void addFiles(String pathname) throws SQLException {
-        // File folder = new File("");
+        System.out.printf("Processing...");
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString() + '/' + pathname + '/';
         File folder = new File(s);
@@ -51,19 +51,54 @@ public class AdminMenu {
 
         for (File file : listOfFiles) {
             if (file.isFile()) {
-                if(file.getName().startsWith("category")) {
-                    System.out.println(file.getName());
-                    CategoryHandler ch = new CategoryHandler(file);
-                    ch.handleCategoryFile(dbase);
+                String fileName = file.getName();
+                if(fileName.startsWith("category")) {
+                    // System.out.println(file.getName());
+                    CategoryHandler ch = new CategoryHandler(this.dbase);
+                    ch.handleCategoryFile(file);
+                }
+                else if(fileName.startsWith("manufacturer")) {
+                    ManufacturerHandler ch = new ManufacturerHandler(this.dbase);
+                    ch.handleManufacturerFile(file);
+                }
+                else if(fileName.startsWith("part")) {
+                    PartHandler ch = new PartHandler(this.dbase);
+                    ch.handlePartFile(file);
+                }
+                else if(fileName.startsWith("salesperson")) {
+                    SalespersonHandler ch = new SalespersonHandler(this.dbase);
+                    ch.handleSalespersonFile(file);
+                }
+                else if(fileName.startsWith("transaction")) {
+                    TransactionHandler th = new TransactionHandler(this.dbase);
+                    th.handeTransactionFile(file);
                 }
             }
         }
+        System.out.println("Done! Data is inputted to the database!");
     } 
 
     public void getTable(String tableName) throws SQLException {
+        System.out.println("Content of table " + tableName+ ":");
         if(tableName.startsWith("category")) {
-            CategoryHandler ch = new CategoryHandler(null);
-            ch.insertCategory(tableName, dbase);
+            CategoryHandler ch = new CategoryHandler(this.dbase);
+            ch.printCategory(tableName);
+        }
+        else if(tableName.startsWith("manufacturer")) {
+            ManufacturerHandler mh = new ManufacturerHandler(this.dbase);
+            mh.printManufacturer(tableName);
+        }
+        else if(tableName.startsWith("part")) {
+            PartHandler ph = new PartHandler(this.dbase);
+            ph.printPart(tableName);
+        }
+        else if(tableName.startsWith("salesperson")) {
+            SalespersonHandler sh = new SalespersonHandler(this.dbase);
+            sh.printSalesperson(tableName);
+        }
+        else if(tableName.startsWith("transaction")) {
+            TransactionHandler sh = new TransactionHandler(this.dbase);
+            sh.printTransaction(tableName);
         }
     }
 
