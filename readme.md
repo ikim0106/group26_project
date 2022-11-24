@@ -33,3 +33,11 @@ make comp
 make all
 ```
 should do the trick
+
+&nbsp;
+
+before committing to the repo, running
+```
+make clear
+```
+would be greatly appreciated, thanks!
