@@ -60,7 +60,7 @@ public class TransactionHandler {
         int partid;
         int salespersonid;
         Date wut;
-        final String TO_FORMAT = "DD/MM/YYYY";
+        final String TO_FORMAT = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(TO_FORMAT);
         
         try {
