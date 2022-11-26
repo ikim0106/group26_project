@@ -31,11 +31,15 @@ public class MainMenu {
                 AdminMenu admin = new AdminMenu(dbase);
                 admin.initAdminMenu();
             }
+            else if(n==2) {
+                SalesMenu sales = new SalesMenu(dbase);
+                sales.initSalesMenu();
+            }
             else if(n==3) {
                 System.out.println("Initializing manager interface...");
                 ManagerMenu admin = new ManagerMenu(dbase);
                 admin.initManagerMenu();
-            }
+            
             else if(n==4) return;
         }
     }
