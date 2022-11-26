@@ -27,7 +27,7 @@ public class MainMenu {
             // reader.close();
             // System.out.println(String.format("You chose %d", n));
             if(n==1) {
-                System.out.println("Initializing admin interface...");
+                // System.out.println("Initializing admin interface...");
                 AdminMenu admin = new AdminMenu(dbase);
                 admin.initAdminMenu();
             }

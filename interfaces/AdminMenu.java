@@ -58,20 +58,20 @@ public class AdminMenu {
                     ch.handleCategoryFile(file);
                 }
                 else if(fileName.startsWith("manufacturer")) {
-                    ManufacturerHandler ch = new ManufacturerHandler(this.dbase);
-                    ch.handleManufacturerFile(file);
+                    ManufacturerHandler mh = new ManufacturerHandler(this.dbase);
+                    mh.handleManufacturerFile(file);
                 }
                 else if(fileName.startsWith("part")) {
-                    PartHandler ch = new PartHandler(this.dbase);
-                    ch.handlePartFile(file);
+                    PartHandler ph = new PartHandler(this.dbase);
+                    ph.handlePartFile(file);
                 }
                 else if(fileName.startsWith("salesperson")) {
-                    SalespersonHandler ch = new SalespersonHandler(this.dbase);
-                    ch.handleSalespersonFile(file);
+                    SalespersonHandler sh = new SalespersonHandler(this.dbase);
+                    sh.handleSalespersonFile(file);
                 }
                 else if(fileName.startsWith("transaction")) {
                     TransactionHandler th = new TransactionHandler(this.dbase);
-                    th.handeTransactionFile(file);
+                    th.handleTransactionFile(file);
                 }
             }
         }
@@ -97,8 +97,8 @@ public class AdminMenu {
             sh.printSalesperson(tableName);
         }
         else if(tableName.startsWith("transaction")) {
-            TransactionHandler sh = new TransactionHandler(this.dbase);
-            sh.printTransaction(tableName);
+            TransactionHandler th = new TransactionHandler(this.dbase);
+            th.printTransaction(tableName);
         }
     }
 

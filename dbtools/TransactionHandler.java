@@ -18,7 +18,7 @@ public class TransactionHandler {
         this.dbase = dbase;
     }
 
-    public void handeTransactionFile(File tFile) {
+    public void handleTransactionFile(File tFile) {
         try {
             FileInputStream fstream = new FileInputStream(tFile);
             DataInputStream in = new DataInputStream(fstream);
