@@ -39,7 +39,7 @@ public class MainMenu {
                 System.out.println("Initializing manager interface...");
                 ManagerMenu admin = new ManagerMenu(dbase);
                 admin.initManagerMenu();
-            
+            }
             else if(n==4) return;
         }
     }
