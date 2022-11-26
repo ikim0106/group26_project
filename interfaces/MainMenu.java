@@ -31,6 +31,10 @@ public class MainMenu {
                 AdminMenu admin = new AdminMenu(dbase);
                 admin.initAdminMenu();
             }
+            if(n==2) {
+                SalesMenu sales = new SalesMenu(dbase);
+                sales.initSalesMenu();
+            }
             else if(n==4) return;
         }
     }
