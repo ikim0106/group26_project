@@ -27,9 +27,14 @@ public class MainMenu {
             // reader.close();
             // System.out.println(String.format("You chose %d", n));
             if(n==1) {
-                // System.out.println("Initializing admin interface...");
+                System.out.println("Initializing admin interface...");
                 AdminMenu admin = new AdminMenu(dbase);
                 admin.initAdminMenu();
+            }
+            else if(n==3) {
+                System.out.println("Initializing manager interface...");
+                ManagerMenu admin = new ManagerMenu(dbase);
+                admin.initManagerMenu();
             }
             else if(n==4) return;
         }
