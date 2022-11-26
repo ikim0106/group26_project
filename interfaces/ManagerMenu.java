@@ -54,40 +54,16 @@ public class ManagerMenu {
 
     public void totalValue() throws SQLException {
         System.out.println("| Manufacturer ID | Manufacturer Name | Total Sales Value |");
-        
-        // System.out.printf("Processing...");
-        // Path currentRelativePath = Paths.get("");
-        // String s = currentRelativePath.toAbsolutePath().toString() + '/' + pathname + '/';
-        // File folder = new File(s);
-        // File[] listOfFiles = folder.listFiles();
-
-        // for (File file : listOfFiles) {
-        //     if (file.isFile()) {
-        //         String fileName = file.getName();
-        //         if(fileName.startsWith("category")) {
-        //             // System.out.println(file.getName());
-        //             CategoryHandler ch = new CategoryHandler(this.dbase);
-        //             ch.handleCategoryFile(file);
-        //         }
-        //         else if(fileName.startsWith("manufacturer")) {
-        //             ManufacturerHandler ch = new ManufacturerHandler(this.dbase);
-        //             ch.handleManufacturerFile(file);
-        //         }
-        //         else if(fileName.startsWith("part")) {
-        //             PartHandler ch = new PartHandler(this.dbase);
-        //             ch.handlePartFile(file);
-        //         }
-        //         else if(fileName.startsWith("salesperson")) {
-        //             SalespersonHandler ch = new SalespersonHandler(this.dbase);
-        //             ch.handleSalespersonFile(file);
-        //         }
-        //         else if(fileName.startsWith("transaction")) {
-        //             TransactionHandler th = new TransactionHandler(this.dbase);
-        //             th.handeTransactionFile(file);
-        //         }
-        //     }
-        // }
-        // System.out.println("Done! Data is inputted to the database!");
+        Statement stmt = this.dbase.dbConnection.createStatement();
+        ResultSet rs;
+        String Query = "SELECT m.mid, m.mname, SUM(p.pprice) total FROM transaction t JOIN part p on p.pid = t.pid JOIN manufacturer m on m.mid = p.mid GROUP BY m.mid ORDER BY total DESC;";
+        rs = stmt.executeQuery(Query);
+        while(rs.next()) {
+            int manufacturerid = rs.getInt(1);
+            String manufaturername = rs.getString(2);
+            int total = rs.getInt(3);
+            System.out.printf("| %d | %s | %d |\n", manufacturerid, manufaturername, total);
+        }
     } 
 
     public void nPopular(int num) throws SQLException {
@@ -170,6 +146,8 @@ public class ManagerMenu {
             }
             
             else if(n==5) return;
+            System.out.printf("End of Query");
         }
+        
     }
 }
