@@ -16,7 +16,7 @@ public class ManagerMenu {
     }
 
     public void listSalesman(boolean asc) throws SQLException {
-        System.out.println("| ID | Name | Moobile Phone | Years of Experience |");
+        System.out.println("| ID | Name | Mobile Phone | Years of Experience |");
         Statement stmt = this.dbase.dbConnection.createStatement();
         ResultSet rs;
         if (asc == true){
