@@ -16,7 +16,7 @@ public class SalesMenu {
     public void getParts(int searchCriteria, String searchKey, int searchOrder) throws SQLException {
         SalesPartsHandler sph = new SalesPartsHandler(this.dbase);
         sph.printSalesParts(searchCriteria, searchKey, searchOrder);
-        System.out.println("End of Query");
+        System.out.printf("End of Query\n\n");
     }
 
     public void addTransaction(int pid, int sid) throws SQLException {       
@@ -69,7 +69,7 @@ public class SalesMenu {
                 catch(SQLException sql_e) {System.out.println(sql_e);}
             }
             
-            else if(n==3) return;
+            return;
         }
     }
 }

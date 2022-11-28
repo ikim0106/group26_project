@@ -48,7 +48,7 @@ public class SalesTransactionHandler {
             // System.out.printf("%s, %d", partname, partavailablequantity);
         } catch(SQLException sql_e) {System.out.println(sql_e);}
         if(partavailablequantity==0) {
-            System.out.printf("Error: part %s is out of stock\n", partname);
+            System.out.printf("Error! Product: %s(id: %d) is out of stock\n", partname, partid);
             return;
         }
         // add new transaction to table
@@ -77,7 +77,7 @@ public class SalesTransactionHandler {
             stmt.execute();
         } catch(SQLException sql_e) {System.out.println(sql_e);}
         // output the message 
-        System.out.printf("Product: %s(id: %d) Remaining Quality: %d\n", partname, partid, partavailablequantity);
+        System.out.printf("Product: %s(id: %d) Remaining Quality: %d\n\n", partname, partid, partavailablequantity);
     }
 
 }

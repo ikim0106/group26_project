@@ -29,7 +29,7 @@ public class AdminMenu {
         for(int i=0; i<tablesToCreate.length; i++) {
             stmt.executeUpdate(tablesToCreate[i]);
         }
-        System.out.println("Done! Database is initialized!");
+        System.out.println("Done! Database is initialized!\n");
     }
 
     public void deleteTables() throws SQLException {
@@ -39,7 +39,7 @@ public class AdminMenu {
             String removeQuery = "DROP TABLE " + tables[i];
             stmt.executeUpdate(removeQuery);
         }
-        System.out.println("Done! Database is removed!");
+        System.out.println("Done! Database is removed!\n");
     }
 
     public void addFiles(String pathname) throws SQLException {
@@ -75,7 +75,7 @@ public class AdminMenu {
                 }
             }
         }
-        System.out.println("Done! Data is inputted to the database!");
+        System.out.println("Done! Data is inputted to the database!\n");
     } 
 
     public void getTable(String tableName) throws SQLException {
@@ -100,6 +100,7 @@ public class AdminMenu {
             TransactionHandler th = new TransactionHandler(this.dbase);
             th.printTransaction(tableName);
         }
+        System.out.printf("\n");
     }
 
     public void initAdminMenu() {
@@ -141,7 +142,7 @@ public class AdminMenu {
                 catch(SQLException sql_e) {System.out.println(sql_e);}
             }
             
-            else if(n==5) return;
+            return;
         }
     }
 }

@@ -12,8 +12,9 @@ public class MainMenu {
 
     public void initMainMenu() {
         while(true) {
-            System.out.println("Connection established");
-            System.out.println(this.dbase.toString());
+            // System.out.println("Connection established");
+            // System.out.println(this.dbase.toString());
+            System.out.println("Welcome to sales system!");
             System.out.println("\n-----Main menu-----");
             System.out.println("What kinds of operation would you like to perform?");
             System.out.println("1. Operations for administrator");

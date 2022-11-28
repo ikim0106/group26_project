@@ -113,6 +113,7 @@ public class ManagerMenu {
                         System.out.println("Unrecognized input. Please try again");
                     }
                 }
+                System.out.printf("\n");
             }
 
             else if(n==2) {
@@ -122,11 +123,13 @@ public class ManagerMenu {
                 int s = reader.nextInt();
                 try {transactionNum(w,s);} 
                 catch(SQLException sql_e) {System.out.println(sql_e);}
+                System.out.printf("End of Query\n\n");
             }
 
             else if(n==3) {
                 try {totalValue();}
                 catch(SQLException sql_e) {System.out.println(sql_e);}
+                System.out.printf("End of Query\n\n");
             }
 
             else if(n==4) {
@@ -142,11 +145,10 @@ public class ManagerMenu {
                     }
                 }
                 catch(InputMismatchException e){System.out.println("Input should be an integer");}
-                
+                System.out.printf("End of Query\n\n");
             }
-            
-            else if(n==5) return;
-            System.out.printf("End of Query");
+        
+            return;
         }
         
     }
