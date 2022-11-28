@@ -65,7 +65,9 @@ Inho KIM (1155116159)
 3. Others
     a. Makefile
         - for compilation and execution purposes, refer to the method below.
-    b. Main.java
+    b. mysql-jdbc.jar
+        - official JDBC driver for MySQL
+    c. Main.java
         - program starter
 
 ** Method of compilation and execution **
