@@ -7,10 +7,10 @@ public class Main {
         Database dbase = new Database();
         try {
             dbase.getConnection();
-        } catch(SQLException sql_e) {
+        } catch (SQLException sql_e) {
             System.out.println(sql_e);
             System.exit(0);
-        } catch(ClassNotFoundException class_e) {
+        } catch (ClassNotFoundException class_e) {
             System.out.println();
             System.exit(0);
         }

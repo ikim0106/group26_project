@@ -9,7 +9,7 @@ public class SalespersonHandler {
     private String saddress;
     private int sphonenumber;
     private int sexperience;
-    
+
     Database dbase = null;
 
     public SalespersonHandler(Database dbase) {
@@ -23,16 +23,19 @@ public class SalespersonHandler {
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
 
-            while ((strLine = br.readLine()) != null)   {
+            while ((strLine = br.readLine()) != null) {
                 String[] toParse = strLine.split("\t");
                 this.sid = Integer.parseInt(toParse[0]);
                 this.sname = toParse[1];
                 this.saddress = toParse[2];
                 this.sphonenumber = Integer.parseInt(toParse[3]);
                 this.sexperience = Integer.parseInt(toParse[4]);
-                // System.out.println("mid: " + this.mid + ", " + "mname: " + this.mname + ", " + "maddress: " + this.maddress + ", " + "mphonenumber: " + this.mphonenumber);
+                // System.out.println("mid: " + this.mid + ", " + "mname: " + this.mname + ", "
+                // + "maddress: " + this.maddress + ", " + "mphonenumber: " +
+                // this.mphonenumber);
                 try {
-                    PreparedStatement stmt = this.dbase.dbConnection.prepareStatement("INSERT INTO salesperson (sid, sname, saddress, sphonenumber, sexperience) VALUES(?, ?, ?, ?, ?)");
+                    PreparedStatement stmt = this.dbase.dbConnection.prepareStatement(
+                            "INSERT INTO salesperson (sid, sname, saddress, sphonenumber, sexperience) VALUES(?, ?, ?, ?, ?)");
                     stmt.setInt(1, this.sid);
                     stmt.setString(2, this.sname);
                     stmt.setString(3, this.saddress);
@@ -44,7 +47,7 @@ public class SalespersonHandler {
                 }
             }
             in.close();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -59,15 +62,18 @@ public class SalespersonHandler {
         try {
             Statement stmt = this.dbase.dbConnection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT sid, sname, saddress, sphonenumber, sexperience FROM salesperson");
-            while(rs.next()) {
+            while (rs.next()) {
                 salespersonid = rs.getInt(1);
                 salespersonname = rs.getString(2);
                 salespersonaddress = rs.getString(3);
                 salespersonphonenumber = rs.getInt(4);
                 salespersonexperience = rs.getInt(5);
-                System.out.printf("| %d | %s | %s | %d | %d |\n", salespersonid, salespersonname, salespersonaddress, salespersonphonenumber, salespersonexperience);
+                System.out.printf("| %d | %s | %s | %d | %d |\n", salespersonid, salespersonname, salespersonaddress,
+                        salespersonphonenumber, salespersonexperience);
                 // System.out.println(categoryname);
             }
-        } catch(SQLException sql_e) {System.out.println(sql_e);}
+        } catch (SQLException sql_e) {
+            System.out.println(sql_e);
+        }
     }
 }

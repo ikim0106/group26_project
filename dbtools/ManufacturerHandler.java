@@ -22,15 +22,18 @@ public class ManufacturerHandler {
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
 
-            while ((strLine = br.readLine()) != null)   {
+            while ((strLine = br.readLine()) != null) {
                 String[] toParse = strLine.split("\t");
                 this.mid = Integer.parseInt(toParse[0]);
                 this.mname = toParse[1];
                 this.maddress = toParse[2];
                 this.mphonenumber = Integer.parseInt(toParse[3]);
-                // System.out.println("mid: " + this.mid + ", " + "mname: " + this.mname + ", " + "maddress: " + this.maddress + ", " + "mphonenumber: " + this.mphonenumber);
+                // System.out.println("mid: " + this.mid + ", " + "mname: " + this.mname + ", "
+                // + "maddress: " + this.maddress + ", " + "mphonenumber: " +
+                // this.mphonenumber);
                 try {
-                    PreparedStatement stmt = this.dbase.dbConnection.prepareStatement("INSERT INTO manufacturer (mid, mname, maddress, mphonenumber) VALUES(?, ?, ?, ?)");
+                    PreparedStatement stmt = this.dbase.dbConnection.prepareStatement(
+                            "INSERT INTO manufacturer (mid, mname, maddress, mphonenumber) VALUES(?, ?, ?, ?)");
                     stmt.setInt(1, this.mid);
                     stmt.setString(2, this.mname);
                     stmt.setString(3, this.maddress);
@@ -41,7 +44,7 @@ public class ManufacturerHandler {
                 }
             }
             in.close();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -55,15 +58,18 @@ public class ManufacturerHandler {
         try {
             Statement stmt = this.dbase.dbConnection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT mid, mname, maddress, mphonenumber FROM manufacturer");
-            while(rs.next()) {
+            while (rs.next()) {
                 manufacturerid = rs.getInt(1);
                 manufacturername = rs.getString(2);
                 manufactureraddress = rs.getString(3);
                 manufacturerphonenumber = rs.getInt(4);
-                System.out.printf("| %d | %s | %s | %s |\n", manufacturerid, manufacturername, manufactureraddress, manufacturerphonenumber);
+                System.out.printf("| %d | %s | %s | %s |\n", manufacturerid, manufacturername, manufactureraddress,
+                        manufacturerphonenumber);
                 // System.out.println(categoryname);
             }
-        } catch(SQLException sql_e) {System.out.println(sql_e);}
+        } catch (SQLException sql_e) {
+            System.out.println(sql_e);
+        }
     }
-    
+
 }

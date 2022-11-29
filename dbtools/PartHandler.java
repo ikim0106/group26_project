@@ -25,7 +25,7 @@ public class PartHandler {
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
 
-            while ((strLine = br.readLine()) != null)   {
+            while ((strLine = br.readLine()) != null) {
                 String[] toParse = strLine.split("\t");
                 this.pid = Integer.parseInt(toParse[0]);
                 this.pname = toParse[1];
@@ -34,9 +34,12 @@ public class PartHandler {
                 this.cid = Integer.parseInt(toParse[4]);
                 this.pwarrantyperiod = Integer.parseInt(toParse[5]);
                 this.pavailablequantity = Integer.parseInt(toParse[6]);
-                // System.out.println("mid: " + this.mid + ", " + "mname: " + this.mname + ", " + "maddress: " + this.maddress + ", " + "mphonenumber: " + this.mphonenumber);
+                // System.out.println("mid: " + this.mid + ", " + "mname: " + this.mname + ", "
+                // + "maddress: " + this.maddress + ", " + "mphonenumber: " +
+                // this.mphonenumber);
                 try {
-                    PreparedStatement stmt = this.dbase.dbConnection.prepareStatement("INSERT INTO part (pid, pname, pprice, mid, cid, pwarrantyperiod, pavailablequantity) VALUES(?, ?, ?, ?, ?, ?, ?)");
+                    PreparedStatement stmt = this.dbase.dbConnection.prepareStatement(
+                            "INSERT INTO part (pid, pname, pprice, mid, cid, pwarrantyperiod, pavailablequantity) VALUES(?, ?, ?, ?, ?, ?, ?)");
                     stmt.setInt(1, this.pid);
                     stmt.setString(2, this.pname);
                     stmt.setInt(3, this.pprice);
@@ -50,7 +53,7 @@ public class PartHandler {
                 }
             }
             in.close();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -66,8 +69,9 @@ public class PartHandler {
         int partavailablequantity;
         try {
             Statement stmt = this.dbase.dbConnection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT pid, pname, pprice, mid, cid, pwarrantyperiod, pavailablequantity FROM part");
-            while(rs.next()) {
+            ResultSet rs = stmt
+                    .executeQuery("SELECT pid, pname, pprice, mid, cid, pwarrantyperiod, pavailablequantity FROM part");
+            while (rs.next()) {
                 partid = rs.getInt(1);
                 partname = rs.getString(2);
                 partprice = rs.getInt(3);
@@ -75,10 +79,13 @@ public class PartHandler {
                 categoryid = rs.getInt(5);
                 partwarrantyperiod = rs.getInt(6);
                 partavailablequantity = rs.getInt(7);
-                System.out.printf("| %d | %s | %d | %d | %d | %d | %d |\n", partid, partname, partprice, manufacturerid, categoryid, partwarrantyperiod, partavailablequantity);
+                System.out.printf("| %d | %s | %d | %d | %d | %d | %d |\n", partid, partname, partprice, manufacturerid,
+                        categoryid, partwarrantyperiod, partavailablequantity);
             }
-                // System.out.println(categoryname);
-        } catch(SQLException sql_e) {System.out.println(sql_e);}
+            // System.out.println(categoryname);
+        } catch (SQLException sql_e) {
+            System.out.println(sql_e);
+        }
     }
 
 }

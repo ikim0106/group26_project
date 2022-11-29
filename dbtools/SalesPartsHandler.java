@@ -1,9 +1,8 @@
 package dbtools;
 
-import java.io.*;
 import java.sql.*;
 
-public class SalesPartsHandler {  
+public class SalesPartsHandler {
     Database dbase = null;
 
     public SalesPartsHandler(Database dbase) {
@@ -22,24 +21,22 @@ public class SalesPartsHandler {
         int partwarrantyperiod;
         int partprice;
         String newQuery = "SELECT P.pid, P.pname, M.mname, C.cname, P.pavailablequantity, P.pwarrantyperiod, P.pprice FROM "
-                    + "part P, manufacturer M, category C WHERE " + "P.mid = M.mid AND " + "P.cid = C.cid AND ";
+                + "part P, manufacturer M, category C WHERE " + "P.mid = M.mid AND " + "P.cid = C.cid AND ";
         try {
-            if(searchCriteria==1) {
+            if (searchCriteria == 1) {
                 newQuery = newQuery + "P.pname = ?";
-            }
-            else if(searchCriteria==2) {
+            } else if (searchCriteria == 2) {
                 newQuery = newQuery + "M.mname = ?";
             }
-            if(searchOrder==1) {
+            if (searchOrder == 1) {
                 newQuery = newQuery + " ORDER BY P.pprice ASC";
-            }
-            else if(searchOrder==2) {
+            } else if (searchOrder == 2) {
                 newQuery = newQuery + " ORDER BY P.pprice DESC";
-            }            
+            }
             PreparedStatement stmt = this.dbase.dbConnection.prepareStatement(newQuery);
             stmt.setString(1, searchKey);
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 partid = rs.getInt(1);
                 partname = rs.getString(2);
                 manufacturername = rs.getString(3);
@@ -47,8 +44,11 @@ public class SalesPartsHandler {
                 partavailablequantity = rs.getInt(5);
                 partwarrantyperiod = rs.getInt(6);
                 partprice = rs.getInt(7);
-                System.out.printf("| %d | %s | %s | %s | %d | %d | %d |\n", partid, partname, manufacturername, categoryname, partavailablequantity, partwarrantyperiod, partprice);
+                System.out.printf("| %d | %s | %s | %s | %d | %d | %d |\n", partid, partname, manufacturername,
+                        categoryname, partavailablequantity, partwarrantyperiod, partprice);
             }
-        } catch(SQLException sql_e) {System.out.println(sql_e);}
+        } catch (SQLException sql_e) {
+            System.out.println(sql_e);
+        }
     }
 }
