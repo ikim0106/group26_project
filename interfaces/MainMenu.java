@@ -22,7 +22,6 @@ public class MainMenu {
             System.out.println("3. Operations for manager");
             System.out.println("4. Exit this program");
             System.out.printf("Enter your choice: ");
-    
             Scanner reader = new Scanner(System.in);
             int n = reader.nextInt();
             // reader.close();
@@ -42,6 +41,7 @@ public class MainMenu {
                 admin.initManagerMenu();
             }
             else if(n==4) return;
+            System.out.printf("\n");
         }
     }
 }

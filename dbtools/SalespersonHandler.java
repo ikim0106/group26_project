@@ -65,7 +65,7 @@ public class SalespersonHandler {
                 salespersonaddress = rs.getString(3);
                 salespersonphonenumber = rs.getInt(4);
                 salespersonexperience = rs.getInt(5);
-                System.out.printf("| %d | %s | %s | %d | %d |\n", salespersonid, salespersonname, salespersonaddress, salespersonphonenumber, salespersonexperience);
+                System.out.printf("| %d | %s | %s | %d | %d |", salespersonid, salespersonname, salespersonaddress, salespersonphonenumber, salespersonexperience);
                 // System.out.println(categoryname);
             }
         } catch(SQLException sql_e) {System.out.println(sql_e);}
