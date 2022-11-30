@@ -39,7 +39,6 @@ public class MainMenu {
                 admin.initManagerMenu();
             } else if (n == 4)
                 return;
-            System.out.printf("\n");
         }
     }
 }
