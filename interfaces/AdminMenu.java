@@ -47,6 +47,10 @@ public class AdminMenu {
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString() + '/' + pathname + '/';
         File folder = new File(s);
+        if(!folder.exists()) {
+            System.out.println("Invalid folder name!");
+            return;
+        }
         File[] listOfFiles = folder.listFiles();
 
         for (File file : listOfFiles) {
@@ -75,22 +79,29 @@ public class AdminMenu {
     }
 
     public void getTable(String tableName) throws SQLException {
-        System.out.println("Content of table " + tableName + ":");
-        if (tableName.startsWith("category")) {
+        if (tableName.equals("category")) {
+            System.out.println("Content of table " + tableName + ":");
             CategoryHandler ch = new CategoryHandler(this.dbase);
             ch.printCategory(tableName);
-        } else if (tableName.startsWith("manufacturer")) {
+        } else if (tableName.equals("manufacturer")) {
+            System.out.println("Content of table " + tableName + ":");
             ManufacturerHandler mh = new ManufacturerHandler(this.dbase);
             mh.printManufacturer(tableName);
-        } else if (tableName.startsWith("part")) {
+        } else if (tableName.equals("part")) {
+            System.out.println("Content of table " + tableName + ":");
             PartHandler ph = new PartHandler(this.dbase);
             ph.printPart(tableName);
-        } else if (tableName.startsWith("salesperson")) {
+        } else if (tableName.equals("salesperson")) {
+            System.out.println("Content of table " + tableName + ":");
             SalespersonHandler sh = new SalespersonHandler(this.dbase);
             sh.printSalesperson(tableName);
-        } else if (tableName.startsWith("transaction")) {
+        } else if (tableName.equals("transaction")) {
+            System.out.println("Content of table " + tableName + ":");
             TransactionHandler th = new TransactionHandler(this.dbase);
             th.printTransaction(tableName);
+        }
+        else {
+            System.out.println("Invalid table name");
         }
         System.out.printf("\n");
     }
@@ -106,6 +117,10 @@ public class AdminMenu {
             System.out.println("5. Return to the main menu");
             System.out.printf("Enter your choice: ");
             Scanner reader = new Scanner(System.in);
+            if(!reader.hasNextInt()) {
+                System.out.println("Invalid input");
+                return;
+            }
             int n = reader.nextInt();
             // reader.close();
             if (n == 1) {

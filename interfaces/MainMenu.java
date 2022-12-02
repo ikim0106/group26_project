@@ -23,6 +23,10 @@ public class MainMenu {
             System.out.println("4. Exit this program");
             System.out.printf("Enter your choice: ");
             Scanner reader = new Scanner(System.in);
+            if(!reader.hasNextInt()) {
+                System.out.println("Invalid input!");
+                continue;
+            }
             int n = reader.nextInt();
             // reader.close();
             // System.out.println(String.format("You chose %d", n));

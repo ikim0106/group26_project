@@ -94,6 +94,10 @@ public class ManagerMenu {
             System.out.println("5. Return to the main menu");
             System.out.printf("Enter your choice: ");
             Scanner reader = new Scanner(System.in);
+            if(!reader.hasNextInt()) {
+                System.out.println("Invalid input!");
+                continue;
+            }
             int n = reader.nextInt();
             // reader.close();
             if (n == 1) {
